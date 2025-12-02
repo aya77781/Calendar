@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="calendar-wrapper">
+            <div class="calendar-header-section">
+                <h2 id="greetingMessage" class="greeting-message">Work Hard today</h2>
+                <div class="month-year-controls">
+                    <button id="prevMonth" class="nav-btn">‹</button>
+                    <h1 id="currentMonthYear" class="month-year">Janvier 2024</h1>
+                    <button id="nextMonth" class="nav-btn">›</button>
+                </div>
+            </div>
+
+            <div class="calendar-container">
+                <div class="weekdays-header">
+                    <div class="weekday">DIM</div>
+                    <div class="weekday">LUN</div>
+                    <div class="weekday">MAR</div>
+                    <div class="weekday">MER</div>
+                    <div class="weekday">JEU</div>
+                    <div class="weekday">VEN</div>
+                    <div class="weekday">SAM</div>
+                </div>
+                <div id="calendar" class="calendar-grid"></div>
+            </div>
+        </div>
+
+        <button id="toggleSidebar" class="sidebar-toggle-btn">☰</button>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Tâches</h2>
+                <div class="sidebar-header-actions">
+                    <button id="addTaskBtn" class="add-btn">+</button>
+                    <button id="logoutBtn" class="logout-btn" title="Déconnexion">Déconnexion</button>
+                    <button id="closeSidebar" class="close-sidebar-btn">×</button>
+                </div>
+            </div>
+            <div id="userInfo" class="user-info"></div>
+            <div class="calendars-section">
+                <div class="calendars-header">
+                    <h3>Mes Calendriers</h3>
+                    <button id="addCalendarBtn" class="add-calendar-btn" title="Créer un calendrier">+</button>
+                </div>
+                <div id="calendarsList" class="calendars-list"></div>
+            </div>
+            
+            <div id="selectedDate" class="selected-date-info"></div>
+            <div id="todoList" class="tasks-list"></div>
+            
+            <div id="historySection" class="history-section">
+                <div class="history-header" id="historyToggle">
+                    <h3>Tâches en retard</h3>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div id="historyList" class="history-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour créer/modifier un calendrier -->
+    <div id="calendarModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="calendarModalTitle">Nouveau Calendrier</h2>
+                <button class="close-btn" id="closeCalendarModal">×</button>
+            </div>
+            <form id="calendarForm">
+                <div class="form-group">
+                    <label for="calendarName">Nom du calendrier</label>
+                    <input type="text" id="calendarName" required placeholder="Ex: Travail, Études, Personnel...">
+                </div>
+                <div class="form-group">
+                    <label>Couleur</label>
+                    <div class="color-picker-large">
+                        <input type="radio" name="calendarColor" id="cal-color-rose" value="rose" checked>
+                        <label for="cal-color-rose" class="color-option-large rose"></label>
+                        <input type="radio" name="calendarColor" id="cal-color-vert" value="vert">
+                        <label for="cal-color-vert" class="color-option-large vert"></label>
+                        <input type="radio" name="calendarColor" id="cal-color-jaune" value="jaune">
+                        <label for="cal-color-jaune" class="color-option-large jaune"></label>
+                        <input type="radio" name="calendarColor" id="cal-color-bleu" value="bleu">
+                        <label for="cal-color-bleu" class="color-option-large bleu"></label>
+                        <input type="radio" name="calendarColor" id="cal-color-violet" value="violet">
+                        <label for="cal-color-violet" class="color-option-large violet"></label>
+                        <input type="radio" name="calendarColor" id="cal-color-blanc" value="blanc">
+                        <label for="cal-color-blanc" class="color-option-large blanc"></label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancelCalendarBtn" class="btn-secondary">Annuler</button>
+                    <button type="submit" class="btn-primary">Enregistrer</button>
+                    <button type="button" id="deleteCalendarBtn" class="btn-delete" style="display: none;">Supprimer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Nouvelle Tâche</h2>
+                <button class="close-btn" id="closeModal">×</button>
+            </div>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskTitle">Titre</label>
+                    <input type="text" id="taskTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskDate">Date</label>
+                    <input type="date" id="taskDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskTime">Heure</label>
+                    <input type="time" id="taskTime">
+                </div>
+                <div class="form-group">
+                    <label>Calendrier</label>
+                    <select id="taskCalendar" required>
+                        <option value="">Sélectionner un calendrier</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription">Description</label>
+                    <textarea id="taskDescription" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn-secondary">Annuler</button>
+                    <button type="submit" class="btn-primary">Enregistrer</button>
+                    <button type="button" id="deleteBtn" class="btn-delete" style="display: none;">Supprimer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

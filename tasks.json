@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    {
+      "title": "Soutenance ",
+      "date": "2025-12-01",
+      "time": "16:00",
+      "description": "",
+      "color": "pink",
+      "completed": false,
+      "createdAt": "2025-11-30T12:22:43.498Z",
+      "id": "1764505363508"
+    },
+    {
+      "title": "Entretien ",
+      "date": "2025-12-01",
+      "time": "",
+      "description": "",
+      "color": "yellow",
+      "completed": false,
+      "createdAt": "2025-11-30T12:23:01.103Z",
+      "id": "1764505381116"
+    }
+  ],
+  "history": []
+}
